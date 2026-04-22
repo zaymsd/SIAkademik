@@ -12,230 +12,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     {{-- Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a237e 0%, #283593 40%, #3949ab 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Decorative circles background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -120px;
-            right: -120px;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.04);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -150px;
-            left: -100px;
-            width: 500px;
-            height: 500px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .login-wrapper {
-            width: 100%;
-            max-width: 440px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Brand Header */
-        .brand-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .brand-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 16px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 1rem;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .brand-header h1 {
-            color: #fff;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin: 0 0 0.25rem;
-            letter-spacing: -0.5px;
-        }
-
-        .brand-header p {
-            color: rgba(255,255,255,0.65);
-            font-size: 0.875rem;
-            margin: 0;
-        }
-
-        /* Card */
-        .login-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 2.25rem 2.25rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-        }
-
-        .login-card h2 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #1a237e;
-            margin-bottom: 0.25rem;
-        }
-
-        .login-card .subtitle {
-            color: #6c757d;
-            font-size: 0.85rem;
-            margin-bottom: 1.75rem;
-        }
-
-        /* Form */
-        .form-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #343a40;
-            margin-bottom: 0.4rem;
-        }
-
-        .input-group-text {
-            background: #f8f9fa;
-            border-right: none;
-            color: #6c757d;
-        }
-
-        .form-control {
-            border-left: none;
-            font-size: 0.9rem;
-            padding: 0.65rem 0.9rem;
-        }
-
-        .form-control:focus {
-            border-color: #5c6bc0;
-            box-shadow: 0 0 0 0.2rem rgba(92,107,192,0.2);
-        }
-
-        .input-group:focus-within .input-group-text {
-            border-color: #5c6bc0;
-        }
-
-        /* Password toggle */
-        .btn-toggle-pass {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-left: none;
-            color: #6c757d;
-            cursor: pointer;
-            padding: 0 0.9rem;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-
-        .btn-toggle-pass:hover {
-            color: #1a237e;
-        }
-
-        /* Submit Button */
-        .btn-login {
-            background: linear-gradient(135deg, #1a237e, #3949ab);
-            border: none;
-            color: #fff;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.75rem;
-            border-radius: 10px;
-            width: 100%;
-            transition: all 0.25s ease;
-            letter-spacing: 0.3px;
-        }
-
-        .btn-login:hover {
-            background: linear-gradient(135deg, #283593, #5c6bc0);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(26,35,126,0.35);
-        }
-
-        .btn-login:active {
-            transform: translateY(0);
-        }
-
-        /* Alert */
-        .alert-danger {
-            background: #fff5f5;
-            border: 1px solid #fed7d7;
-            color: #c53030;
-            border-radius: 10px;
-            font-size: 0.85rem;
-        }
-
-        .alert-success {
-            background: #f0fff4;
-            border: 1px solid #c6f6d5;
-            color: #276749;
-            border-radius: 10px;
-            font-size: 0.85rem;
-        }
-
-        /* Footer */
-        .login-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.78rem;
-        }
-
-        /* Hint box */
-        .hint-box {
-            background: #f0f4ff;
-            border: 1px solid #c5cae9;
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            font-size: 0.8rem;
-            color: #3949ab;
-            margin-top: 1.25rem;
-        }
-
-        .hint-box i {
-            margin-right: 0.4rem;
-        }
-
-        /* Remember checkbox */
-        .form-check-input:checked {
-            background-color: #1a237e;
-            border-color: #1a237e;
-        }
-
-        .form-check-label {
-            font-size: 0.85rem;
-            color: #495057;
-        }
-    </style>
+    {{-- Custom CSS (terpusat) --}}
+    @vite('resources/css/app.css')
 </head>
-<body>
+<body class="login-page">
 
     <div class="login-wrapper">
 
@@ -253,7 +33,7 @@
             <h2>Selamat Datang 👋</h2>
             <p class="subtitle">Masuk untuk mengakses sistem</p>
 
-            {{-- Flash success (misal setelah logout) --}}
+            {{-- Flash success (setelah logout) --}}
             @if (session('success'))
                 <div class="alert alert-success d-flex align-items-center gap-2 mb-3" role="alert">
                     <i class="bi bi-check-circle-fill"></i>
@@ -261,7 +41,7 @@
                 </div>
             @endif
 
-            {{-- Error umum --}}
+            {{-- Error --}}
             @if ($errors->any())
                 <div class="alert alert-danger d-flex align-items-center gap-2 mb-3" role="alert">
                     <i class="bi bi-exclamation-circle-fill flex-shrink-0"></i>
@@ -274,10 +54,10 @@
 
                 {{-- Email --}}
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label fw-semibold" style="font-size:.85rem;">Email</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="bi bi-envelope-fill" style="font-size:0.9rem;"></i>
+                            <i class="bi bi-envelope-fill" style="font-size:.9rem;"></i>
                         </span>
                         <input type="email"
                                id="email"
@@ -293,10 +73,10 @@
 
                 {{-- Password --}}
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label fw-semibold" style="font-size:.85rem;">Password</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="bi bi-lock-fill" style="font-size:0.9rem;"></i>
+                            <i class="bi bi-lock-fill" style="font-size:.9rem;"></i>
                         </span>
                         <input type="password"
                                id="password"
@@ -320,9 +100,7 @@
                         <input class="form-check-input" type="checkbox"
                                id="remember" name="remember"
                                {{ old('remember') ? 'checked' : '' }}>
-                        <label class="form-check-label" for="remember">
-                            Ingat saya
-                        </label>
+                        <label class="form-check-label" for="remember">Ingat saya</label>
                     </div>
                 </div>
 

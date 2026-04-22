@@ -12,337 +12,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     {{-- Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --sidebar-width: 255px;
-            --sidebar-bg: #1a237e;
-            --sidebar-bg-end: #283593;
-            --accent: #5c6bc0;
-            --accent-light: #e8eaf6;
-            --topbar-h: 60px;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* =====================
-           SIDEBAR
-        ===================== */
-        #sidebar {
-            width: var(--sidebar-width);
-            min-height: 100vh;
-            background: linear-gradient(180deg, var(--sidebar-bg) 0%, var(--sidebar-bg-end) 100%);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1050;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar-brand {
-            padding: 1.25rem 1.25rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .sidebar-brand .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            color: #fff;
-            flex-shrink: 0;
-        }
-
-        .brand-text h6 {
-            color: #fff;
-            font-weight: 700;
-            font-size: 1rem;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        .brand-text small {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.7rem;
-            font-weight: 400;
-        }
-
-        .sidebar-section-label {
-            padding: 1.25rem 1.25rem 0.4rem;
-            color: rgba(255,255,255,0.35);
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-        }
-
-        .sidebar-nav .nav-item { list-style: none; }
-
-        .sidebar-nav .nav-link {
-            color: rgba(255,255,255,0.65);
-            padding: 0.7rem 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
-            cursor: pointer;
-            background: none;
-            border-top: none;
-            border-right: none;
-            border-bottom: none;
-            width: 100%;
-            text-align: left;
-        }
-
-        .sidebar-nav .nav-link i {
-            font-size: 1.05rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        .sidebar-nav .nav-link:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.08);
-            border-left-color: rgba(144,202,249,0.5);
-        }
-
-        .sidebar-nav .nav-link.active {
-            color: #fff;
-            background: rgba(255,255,255,0.15);
-            border-left-color: #90caf9;
-        }
-
-        .sidebar-footer {
-            margin-top: auto;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding: 0.75rem 0;
-        }
-
-        /* =====================
-           MAIN CONTENT
-        ===================== */
-        #main-content {
-            margin-left: var(--sidebar-width);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* =====================
-           TOPBAR
-        ===================== */
-        #topbar {
-            height: var(--topbar-h);
-            background: #fff;
-            padding: 0 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-        }
-
-        .topbar-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #1a237e;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .topbar-user {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .topbar-user .avatar {
-            width: 34px;
-            height: 34px;
-            background: var(--accent-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--sidebar-bg);
-            font-size: 1rem;
-        }
-
-        .topbar-user small {
-            font-size: 0.8rem;
-            color: #6c757d;
-            font-weight: 500;
-        }
-
-        /* =====================
-           CONTENT WRAPPER
-        ===================== */
-        .content-wrapper {
-            padding: 1.5rem;
-            flex: 1;
-        }
-
-        /* =====================
-           CARDS
-        ===================== */
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-        }
-
-        .card-header {
-            background: #fff;
-            border-bottom: 1px solid #eef0f3;
-            border-radius: 12px 12px 0 0 !important;
-            padding: 1rem 1.25rem;
-        }
-
-        .card-header .card-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #212529;
-            margin: 0;
-        }
-
-        /* =====================
-           TABLE
-        ===================== */
-        .table-responsive { border-radius: 0 0 12px 12px; }
-
-        .table th {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #6c757d;
-            background: #f8f9fa;
-            border-top: none;
-            padding: 0.75rem 1rem;
-            white-space: nowrap;
-        }
-
-        .table td {
-            vertical-align: middle;
-            font-size: 0.875rem;
-            padding: 0.75rem 1rem;
-            color: #343a40;
-        }
-
-        .table tbody tr:hover { background-color: #f8f9ff; }
-
-        /* =====================
-           BADGES AKREDITASI
-        ===================== */
-        .badge-A { background-color: #1b5e20; color: #fff; }
-        .badge-B { background-color: #e65100; color: #fff; }
-        .badge-C { background-color: #b71c1c; color: #fff; }
-
-        /* =====================
-           BUTTONS
-        ===================== */
-        .btn-primary {
-            background: #1a237e;
-            border-color: #1a237e;
-        }
-        .btn-primary:hover {
-            background: #283593;
-            border-color: #283593;
-        }
-
-        /* =====================
-           FORM
-        ===================== */
-        .form-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #495057;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: #5c6bc0;
-            box-shadow: 0 0 0 0.2rem rgba(92,107,192,0.2);
-        }
-
-        .page-header {
-            margin-bottom: 1.25rem;
-        }
-
-        .page-header h4 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #212529;
-            margin: 0;
-        }
-
-        .page-header .breadcrumb {
-            font-size: 0.8rem;
-            margin: 0;
-            background: transparent;
-            padding: 0;
-        }
-
-        /* =====================
-           FOOTER
-        ===================== */
-        #main-footer {
-            background: #fff;
-            padding: 0.875rem 1.5rem;
-            border-top: 1px solid #eef0f3;
-            color: #adb5bd;
-            font-size: 0.78rem;
-            text-align: center;
-        }
-
-        /* =====================
-           RESPONSIVE
-        ===================== */
-        @media (max-width: 768px) {
-            #sidebar {
-                transform: translateX(-100%);
-            }
-            #sidebar.show {
-                transform: translateX(0);
-            }
-            #main-content {
-                margin-left: 0;
-            }
-        }
-    </style>
+    {{-- Custom CSS (terpusat) --}}
+    @vite('resources/css/app.css')
 
     @stack('styles')
 </head>
 <body>
 
+    {{-- ======================== SIDEBAR OVERLAY (mobile) ======================== --}}
+    <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
     {{-- ======================== SIDEBAR ======================== --}}
     <div id="sidebar">
         {{-- Brand --}}
         <div class="sidebar-brand">
-            <div class="brand-icon">
+            <div class="brand-icon-sb">
                 <i class="bi bi-mortarboard-fill"></i>
             </div>
             <div class="brand-text">
@@ -353,22 +37,29 @@
 
         {{-- Navigation --}}
         <div class="sidebar-section-label">Menu Utama</div>
-        <ul class="sidebar-nav ps-0 mb-0">
-            <li class="nav-item">
+        <ul class="sidebar-nav">
+            <li>
+                <a href="{{ route('dashboard') }}"
+                   class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('jurusan.index') }}"
                    class="nav-link {{ request()->routeIs('jurusan.*') ? 'active' : '' }}">
                     <i class="bi bi-diagram-3-fill"></i>
                     <span>Jurusan</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a href="{{ route('mahasiswa.index') }}"
                    class="nav-link {{ request()->routeIs('mahasiswa.*') ? 'active' : '' }}">
                     <i class="bi bi-people-fill"></i>
                     <span>Mahasiswa</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a href="{{ route('matakuliah.index') }}"
                    class="nav-link {{ request()->routeIs('matakuliah.*') ? 'active' : '' }}">
                     <i class="bi bi-book-fill"></i>
@@ -380,8 +71,8 @@
         {{-- Sidebar Footer --}}
         <div class="sidebar-footer">
             <div class="sidebar-section-label">Akun</div>
-            <ul class="sidebar-nav ps-0 mb-0">
-                <li class="nav-item">
+            <ul class="sidebar-nav">
+                <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="nav-link">
@@ -399,15 +90,23 @@
 
         {{-- Topbar --}}
         <div id="topbar">
-            <div class="topbar-title">
-                <i class="bi bi-grid-1x2-fill" style="color: var(--accent);"></i>
-                @yield('page-title', 'Dashboard')
-            </div>
-            <div class="topbar-user">
-                <div class="avatar">
-                    <i class="bi bi-person-fill"></i>
+            <div class="topbar-left">
+                {{-- Hamburger (mobile) --}}
+                <button class="btn-hamburger" id="btn-hamburger" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="topbar-title">
+                    <i class="bi bi-grid-1x2-fill" style="color: var(--accent);"></i>
+                    @yield('page-title', 'Dashboard')
                 </div>
-                <small>{{ auth()->user()->name ?? 'Admin' }}</small>
+            </div>
+            <div class="topbar-right">
+                <div class="topbar-user">
+                    <div class="avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <small>{{ auth()->user()->name ?? 'Admin' }}</small>
+                </div>
             </div>
         </div>
 
@@ -443,8 +142,153 @@
 
     </div>
 
+    {{-- ======================== GLOBAL CONFIRM MODAL ======================== --}}
+    {{-- Digunakan untuk konfirmasi Simpan, Update, dan Hapus --}}
+    <div class="modal fade" id="globalConfirmModal" tabindex="-1" aria-labelledby="globalConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                <div class="modal-body text-center py-4 px-4">
+                    <div class="confirm-modal-icon save" id="confirmModalIcon">
+                        <i class="bi bi-patch-question-fill" id="confirmModalIconEl"></i>
+                    </div>
+                    <h5 class="fw-bold mb-1" id="confirmModalTitle">Konfirmasi</h5>
+                    <p class="text-muted mb-0" id="confirmModalMessage" style="font-size: 0.88rem;"></p>
+                    <p class="fw-semibold mt-1 mb-0" id="confirmModalSubject" style="color:#1a237e; font-size: 0.9rem;"></p>
+                </div>
+                <div class="modal-footer border-0 justify-content-center gap-2 pb-4 pt-0">
+                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+                        <i class="bi bi-x-lg me-1"></i>Batal
+                    </button>
+                    <button type="button" class="btn px-4" id="confirmModalBtn" onclick="executeConfirm()">
+                        <i class="bi bi-check-lg me-1"></i>Ya, Lanjutkan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Delete Modal (digunakan per-halaman index) --}}
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 380px;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                <div class="modal-body text-center py-4 px-4">
+                    <div class="confirm-modal-icon danger">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <h5 class="fw-bold mb-1">Konfirmasi Hapus</h5>
+                    <p class="text-muted mb-1" style="font-size:0.88rem;">Hapus data:</p>
+                    <p class="fw-semibold mb-1" id="deleteItemName" style="color:#c62828; font-size:0.9rem;"></p>
+                    <small class="text-muted">Tindakan ini tidak dapat dibatalkan.</small>
+                </div>
+                <div class="modal-footer border-0 justify-content-center gap-2 pb-4 pt-0">
+                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+                        <i class="bi bi-x-lg me-1"></i>Batal
+                    </button>
+                    <form id="deleteForm" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger px-4">
+                            <i class="bi bi-trash-fill me-1"></i>Ya, Hapus
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Bootstrap 5 JS Bundle --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ── Sidebar Toggle (mobile) ──────────────────────────
+        function toggleSidebar() {
+            const sidebar  = document.getElementById('sidebar');
+            const overlay  = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('show');
+            document.getElementById('sidebar-overlay').classList.remove('show');
+        }
+
+        // Tutup sidebar saat resize ke desktop
+        window.addEventListener('resize', function () {
+            if (window.innerWidth >= 992) {
+                closeSidebar();
+            }
+        });
+
+        // ── Global Confirm Modal ─────────────────────────────
+        let _confirmTargetForm = null;
+        let _confirmModal      = null;
+
+        /**
+         * Tampilkan modal konfirmasi sebelum submit form.
+         * @param {string} formId   - ID elemen <form>
+         * @param {string} title    - Judul konfirmasi
+         * @param {string} message  - Pesan deskripsi
+         * @param {string} subject  - Nama data (opsional, dibaca otomatis jika ada data-subject-field)
+         * @param {string} type     - 'save' | 'danger'
+         */
+        function confirmAction(formId, title, message, subject, type) {
+            type    = type    || 'save';
+            subject = subject || '';
+
+            _confirmTargetForm = document.getElementById(formId);
+            if (!_confirmTargetForm) return;
+
+            document.getElementById('confirmModalTitle').textContent   = title;
+            document.getElementById('confirmModalMessage').textContent = message;
+            document.getElementById('confirmModalSubject').textContent = subject;
+
+            const iconWrap = document.getElementById('confirmModalIcon');
+            const iconEl   = document.getElementById('confirmModalIconEl');
+            const btn      = document.getElementById('confirmModalBtn');
+
+            iconWrap.className = 'confirm-modal-icon ' + type;
+            if (type === 'save') {
+                iconEl.className = 'bi bi-patch-check-fill';
+                btn.className    = 'btn btn-primary px-4';
+            } else {
+                iconEl.className = 'bi bi-exclamation-triangle-fill';
+                btn.className    = 'btn btn-danger px-4';
+            }
+
+            _confirmModal = new bootstrap.Modal(document.getElementById('globalConfirmModal'));
+            _confirmModal.show();
+        }
+
+        function executeConfirm() {
+            if (_confirmModal) _confirmModal.hide();
+            if (_confirmTargetForm) _confirmTargetForm.submit();
+        }
+
+        // ── Event delegation untuk tombol data-confirm-form ──
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('[data-confirm-form]');
+            if (!btn) return;
+
+            const formId    = btn.getAttribute('data-confirm-form');
+            const title     = btn.getAttribute('data-confirm-title')   || 'Konfirmasi';
+            const message   = btn.getAttribute('data-confirm-message') || 'Lanjutkan aksi ini?';
+            const fieldId   = btn.getAttribute('data-subject-field');
+            const subject   = fieldId
+                ? (document.getElementById(fieldId) || {}).value || ''
+                : (btn.getAttribute('data-confirm-subject') || '');
+            const type      = btn.getAttribute('data-confirm-type')    || 'save';
+
+            confirmAction(formId, title, message, subject, type);
+        });
+
+        // ── Delete Confirm (index pages) ─────────────────────
+        function confirmDelete(url, name) {
+            document.getElementById('deleteItemName').textContent = name;
+            document.getElementById('deleteForm').action = url;
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+    </script>
 
     @stack('scripts')
 </body>

@@ -89,7 +89,7 @@
                                 <button type="button"
                                         class="btn btn-sm btn-outline-danger"
                                         title="Hapus"
-                                        onclick="confirmDelete({{ $mahasiswa->id_mahasiswa }}, '{{ $mahasiswa->nama }}')">
+                                        onclick="confirmDelete('{{ route('mahasiswa.destroy', $mahasiswa->id_mahasiswa) }}', '{{ $mahasiswa->nama }}')">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </td>
@@ -123,45 +123,4 @@
         @endif
     </div>
 
-    {{-- Delete Confirmation Modal --}}
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content border-0 shadow">
-                <div class="modal-header bg-danger text-white border-0">
-                    <h6 class="modal-title" id="deleteModalLabel">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Konfirmasi Hapus
-                    </h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body text-center py-4">
-                    <p class="mb-1">Hapus data mahasiswa:</p>
-                    <p class="fw-bold mb-1" id="deleteItemName" style="color:#1a237e;"></p>
-                    <small class="text-muted">Tindakan ini tidak dapat dibatalkan.</small>
-                </div>
-                <div class="modal-footer border-0 justify-content-center gap-2">
-                    <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">
-                        <i class="bi bi-x-lg me-1"></i>Batal
-                    </button>
-                    <form id="deleteForm" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm px-4">
-                            <i class="bi bi-trash-fill me-1"></i>Ya, Hapus
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
 @endsection
-
-@push('scripts')
-<script>
-    function confirmDelete(id, name) {
-        document.getElementById('deleteItemName').textContent = name;
-        document.getElementById('deleteForm').action = '{{ url("mahasiswa") }}/' + id;
-        new bootstrap.Modal(document.getElementById('deleteModal')).show();
-    }
-</script>
-@endpush
