@@ -108,6 +108,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <a href="{{ route('mahasiswa.export-csv') }}" class="btn btn-primary">Export CSV</a>
+            <a href="{{ route('mahasiswa.print') }}" class="btn btn-primary">Cetak PDF</a>
+            <a href="{{ route('mahasiswa.export-excel') }}" class="btn btn-primary">Export Excel</a>
         </div>
 
         @if ($mahasiswas->hasPages())

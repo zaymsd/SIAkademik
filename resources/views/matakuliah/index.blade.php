@@ -108,6 +108,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <a href="{{ route('matakuliah.export-csv') }}" class="btn btn-primary">Export CSV</a>
+            <a href="{{ route('matakuliah.print') }}" class="btn btn-primary">Cetak PDF</a>
+            <a href="{{ route('matakuliah.export-excel') }}" class="btn btn-primary">Export Excel</a>
         </div>
 
         @if ($matakuliahs->hasPages())

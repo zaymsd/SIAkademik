@@ -116,4 +116,55 @@ class MatakuliahController extends Controller
         return redirect()->route('matakuliah.index')
                          ->with('success', 'Data matakuliah berhasil dihapus.');
     }
+
+    //print csv
+    public function exportCsv(){
+        $fileName = 'matakuliah.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',         
+        ];
+
+        $callback = function(){
+         $file = fopen('php://output' , 'w');
+         
+         fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+         
+         fputcsv($file, [
+            'ID', 
+            'Nama Matakuliah', 
+            'SKS', 
+            'Jurusan'], ';');
+         
+        $matakuliah = Matakuliah::with('jurusan')->get();
+
+        foreach($matakuliah as $item){
+            fputcsv($file, [
+                $item->id_matakuliah,
+                $item->nama_matakuliah,
+                $item->sks,
+                $item->jurusan->nama_jurusan ?? '-',
+            ], ';');
+        } 
+        fclose($file);
+    };  
+        return response()->stream($callback, 200, $headers);
+    }
+
+    //print pdf
+    public function print(){
+        $matakuliah = Matakuliah::with('jurusan')->get();
+        return view('matakuliah.print', compact('matakuliah'));
+    }
+
+    //print excel
+    public function exportExcel(){
+        $matakuliah = Matakuliah::with('jurusan')->get();
+
+        return response()
+        ->view('matakuliah.excel', compact('matakuliah'))
+        ->header('content-Type', 'application/vnd.ms-excel')
+        ->header('Content-Disposition', 'attachment; filename="matakuliah.xls"');
+    }
 }

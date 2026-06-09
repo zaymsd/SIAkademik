@@ -101,6 +101,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <a href="{{ route('jurusan.export-csv') }}" class="btn btn-primary">Export CSV</a>
+            <a href="{{ route('jurusan.print') }}" class="btn btn-primary">Cetak PDF</a>
+            <a href="{{ route('jurusan.export-excel') }}" class="btn btn-primary">Export Excel</a>
         </div>
 
         @if ($jurusans->hasPages())

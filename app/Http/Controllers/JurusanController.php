@@ -14,7 +14,7 @@ class JurusanController extends Controller
     {
         $search = $request->input('search');
 
-        $jurusans = Jurusan::when($search, function ($query, $search) {
+        $jurusans = Jurusan::query()->when($search, function ($query, $search) {
             return $query->where('nama_jurusan', 'like', "%{$search}%")
                          ->orWhere('akreditasi', 'like', "%{$search}%");
         })->paginate(10)->withQueryString();
@@ -102,5 +102,54 @@ class JurusanController extends Controller
 
         return redirect()->route('jurusan.index')
                          ->with('success', 'Data jurusan berhasil dihapus.');
+    }
+
+    //print csv
+    public function exportCsv(){
+        $fileName = 'jurusan.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',         
+        ];
+
+        $callback = function(){
+         $file = fopen('php://output' , 'w');
+         
+         fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+         
+         fputcsv($file, [
+            'ID', 
+            'Nama Jurusan', 
+            'Akreditasi'], ';');
+         
+        $jurusan = Jurusan::all();
+
+        foreach($jurusan as $item){
+            fputcsv($file, [
+                $item->id_jurusan,
+                $item->nama_jurusan,
+                $item->akreditasi,
+            ], ';');
+        } 
+        fclose($file);
+    };  
+        return response()->stream($callback, 200, $headers);
+    }
+
+    //print pdf
+    public function print(){
+        $jurusan = Jurusan::all();
+        return view('jurusan.print', compact('jurusan'));
+    }
+
+    //print excel
+    public function exportExcel(){
+        $jurusan = Jurusan::all();
+
+        return response()
+        ->view('jurusan.excel', compact('jurusan'))
+        ->header('content-Type', 'application/vnd.ms-excel')
+        ->header('Content-Disposition', 'attachment; filename="jurusan.xls"');
     }
 }
